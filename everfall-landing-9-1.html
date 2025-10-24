@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everfall: Idle Dungeon RPG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0e17;
+            --darker-bg: #060911;
+            --accent: #5b7c99;
+            --accent-bright: #7ba3c7;
+            --text-primary: #e8eef3;
+            --text-secondary: #a8b5c4;
+            --card-bg: #131820;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Video Section */
+        .video-section {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(91, 124, 153, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            padding: 3rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 14, 23, 0.9) 0%, rgba(10, 14, 23, 0.5) 100%);
+            border-bottom: 1px solid rgba(91, 124, 153, 0.2);
+        }
+
+        .logo {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+
+        /* CTA Buttons */
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(91, 124, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(91, 124, 153, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(91, 124, 153, 0.1);
+            color: var(--accent-bright);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(91, 124, 153, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: rgba(91, 124, 153, 0.1);
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(91, 124, 153, 0.2);
+        }
+
+        .social-link:hover {
+            background: rgba(91, 124, 153, 0.2);
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(91, 124, 153, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 25px rgba(91, 124, 153, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-bright);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Party Section */
+        .party-section {
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(91, 124, 153, 0.2);
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent-bright);
+        }
+
+        .party-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .party-member {
+            background: rgba(91, 124, 153, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(91, 124, 153, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .party-member:hover {
+            background: rgba(91, 124, 153, 0.15);
+            border-color: var(--accent);
+        }
+
+        .party-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .party-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(91, 124, 153, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--accent-bright);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 400px;
+            }
+
+            .cta-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://raw.githubusercontent.com/Graphic37/RPG-Dungeon-Simulator/main/everfall%20game.png" alt="Everfall: Idle Dungeon RPG" class="logo fade-in">
+        
+        <div class="cta-container fade-in">
+            <a href="#" class="btn btn-primary">Play on Steam</a>
+            <a href="https://graphic37.github.io/Everfall-Leaderboard/" class="btn btn-secondary">View Leaderboard</a>
+            <a href="https://graphic37.github.io/Everfall-Wiki/" class="btn btn-secondary">Wiki</a>
+        </div>
+
+        <div class="social-links fade-in">
+            <a href="https://discord.gg/bk9JYA4k" class="social-link" target="_blank">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                Discord
+            </a>
+            <a href="https://x.com/GameDevJoeyYT" class="social-link" target="_blank">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                Twitter
+            </a>
+            <a href="https://www.youtube.com/channel/UCmIPFTLZdm1S-2U_e8ujnTA" class="social-link" target="_blank">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                YouTube
+            </a>
+        </div>
+    </header>
+
+    <div class="video-section fade-in">
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/OPd22OwB8yA?autoplay=1&mute=1&loop=1&playlist=OPd22OwB8yA&controls=1&modestbranding=1&rel=0" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="description fade-in">
+            <p>Everfall: Idle Dungeon RPG is a four-hero idle combat RPG packed with dungeons, bosses, loot, and progression systems that never slow down. Gear up your party, unlock keystones and runes, collect pets, and climb through harder vaults with automated combat and scaling challenges.</p>
+            <p style="margin-top: 1rem; color: var(--accent-bright); font-weight: 600;">Late-game isn't the end — it's the beginning. The game expands into new systems, tougher dungeons, and deeper rewards that make progression more satisfying the longer you play.</p>
+        </div>
+
+        <div class="party-section fade-in">
+            <h2 class="section-title">🛡️ Build Your Party</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Your squad features four core characters, each with many abilities and build paths to choose from.</p>
+            
+            <div class="party-grid">
+                <div class="party-member">
+                    <img src="https://raw.githubusercontent.com/Graphic37/RPG-Dungeon-Simulator/main/tank.png" alt="Tank" class="party-icon">
+                    <div class="party-role">Tank</div>
+                </div>
+                <div class="party-member">
+                    <img src="https://raw.githubusercontent.com/Graphic37/RPG-Dungeon-Simulator/main/rogue.png" alt="Rogue" class="party-icon">
+                    <div class="party-role">Rogue</div>
+                </div>
+                <div class="party-member">
+                    <img src="https://raw.githubusercontent.com/Graphic37/RPG-Dungeon-Simulator/main/mage.png" alt="Mage" class="party-icon">
+                    <div class="party-role">Mage</div>
+                </div>
+                <div class="party-member">
+                    <img src="https://raw.githubusercontent.com/Graphic37/RPG-Dungeon-Simulator/main/healer.png" alt="Healer" class="party-icon">
+                    <div class="party-role">Healer</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Everfall: Idle Dungeon RPG. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>
